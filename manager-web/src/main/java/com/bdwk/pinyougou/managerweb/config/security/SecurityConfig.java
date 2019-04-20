@@ -23,7 +23,7 @@ public class SecurityConfig<configureGlobalSecurity> extends WebSecurityConfigur
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/login.html","/css/**","/img/**","/js/**","/plugins/**").permitAll()
-                .antMatchers("/admin/**").access("hasRole('ROLE_MANGER')")
+                .antMatchers("/admin/**").access("hasRole('MANGER')")
                 .and()
                 .formLogin()
                 .loginPage("/login.html")   //登录页路径
@@ -43,6 +43,6 @@ public class SecurityConfig<configureGlobalSecurity> extends WebSecurityConfigur
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
         // 以前的方式配置
         // auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
-        auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder()).withUser("manger").password(new BCryptPasswordEncoder().encode("manger")).roles("ROLE_MANGER");
+        auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder()).withUser("manger").password(new BCryptPasswordEncoder().encode("manger")).roles("MANGER");
     }
 }
