@@ -1,0 +1,8 @@
+com\bdwk\pinyougou\managerweb\controller\TypeTemplateController.class
+com\bdwk\pinyougou\managerweb\controller\BrandController.class
+com\bdwk\pinyougou\managerweb\config\security\handler\AuthenticationSuccessHandler.class
+com\bdwk\pinyougou\managerweb\config\security\SecurityConfig.class
+com\bdwk\pinyougou\managerweb\ManagerWebApplication.class
+com\bdwk\pinyougou\managerweb\controller\SpecificationController.class
+com\bdwk\pinyougou\managerweb\controller\IndexController.class
+com\bdwk\pinyougou\managerweb\config\mvc\MvcConfig.class

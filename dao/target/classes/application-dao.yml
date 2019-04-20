@@ -1,0 +1,32 @@
+mybatis-plus:
+  type-aliases-package: com.bdwk.pinyougou.pojo
+  mapper-locations: classpath:mapper/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#多数据源情况的配置
+bdwk:
+  muti-datasource:
+    open: false
+    url: jdbc:mysql://127.0.0.1:3306/xxx?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true
+    username: xxx
+    password: xxx
+    dataSourceNames:
+    - dataSourceGuns
+    - dataSourceBiz
+---
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/pinyougoudb?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true
+    username: root
+    password: shuiyue
+    filters: wall,mergeStat
+---
+spring:
+  profiles: test
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/pinyougoudb?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true
+    username: root
+    password: shuiyue
+    filters: wall,mergeStat

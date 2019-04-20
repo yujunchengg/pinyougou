@@ -1,0 +1,4 @@
+com\bdwk\pinyougou\shopweb\ShopWebApplication.class
+com\bdwk\pinyougou\shopweb\config\mvc\MvcConfig.class
+com\bdwk\pinyougou\shopweb\config\security\handler\AuthenticationSuccessHandler.class
+com\bdwk\pinyougou\shopweb\config\security\SecurityConfig.class

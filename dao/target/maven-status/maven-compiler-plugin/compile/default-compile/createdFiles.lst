@@ -1,0 +1,9 @@
+com\bdwk\pinyougou\mapper\TbSpecificationMapper.class
+com\bdwk\pinyougou\mapper\TbTypeTemplateMapper.class
+com\bdwk\pinyougou\config\other\MybatisMapperScannerConfig.class
+com\bdwk\pinyougou\mapper\TbSpecificationOptionMapper.class
+com\bdwk\pinyougou\config\datasource\SingleDataSourceConfig.class
+com\bdwk\pinyougou\config\other\MybatisConfig.class
+com\bdwk\pinyougou\mapper\TbBrandMapper.class
+com\bdwk\pinyougou\config\other\MybatisplusConfig.class
+com\bdwk\pinyougou\config\datasource\MultiDataSourceConfig.class

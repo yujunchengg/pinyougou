@@ -1,0 +1,5 @@
+com\bdwk\pinyougou\pojo\TbTypeTemplate.class
+com\bdwk\pinyougou\vo\SpecificationVo.class
+com\bdwk\pinyougou\pojo\TbSpecification.class
+com\bdwk\pinyougou\pojo\TbBrand.class
+com\bdwk\pinyougou\pojo\TbSpecificationOption.class
