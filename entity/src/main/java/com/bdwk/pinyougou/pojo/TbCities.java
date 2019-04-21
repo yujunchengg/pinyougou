@@ -15,13 +15,13 @@ import java.io.Serializable;
 /**
  * 城市实体类
  */
-@TableName("tb_citys")
+@TableName("tb_cities")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @Accessors(chain = true)
-public class TbCitys extends Model<TbCitys> {
+public class TbCities extends Model<TbCities> {
 
     private static final long serialVersionUID = 7829374476226185648L;
     @TableId(value = "id",type = IdType.AUTO)
