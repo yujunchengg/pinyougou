@@ -19,8 +19,16 @@
     <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
   
     <script src="../plugins/adminLTE/js/app.min.js"></script>
-    
 
+    <!--引入angular.js-->
+    <script type="text/javascript" src="../plugins/angularjs/angular.min.js"></script>
+
+    <!--引入页面渲染所需的js-->
+    <script type="text/javascript" src="../js/local/base.js"></script>
+    <script type="text/javascript" src="../js/local/service/indexService.js"></script>
+    <script type="text/javascript" src="../js/local/service/authService.js"></script>
+    <script type="text/javascript" src="../js/local/controller/baseController.js"></script>
+    <script type="text/javascript" src="../js/local/controller/indexController.js"></script>
     
     <script type="text/javascript">
    
@@ -35,7 +43,7 @@
 
 </head>
 
-<body class="hold-transition skin-blue sidebar-mini">
+<body ng-app="pinyougou" ng-controller="indexController" ng-init="getAuthName()" class="hold-transition skin-blue sidebar-mini">
 
     <div class="wrapper">
 
@@ -258,7 +266,7 @@
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <img src="../img/user2-160x160.jpg" class="user-image" alt="User Image">
-                                <span class="hidden-xs">chendahai</span>
+                                <span class="hidden-xs">{{authName}}</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
@@ -266,7 +274,7 @@
                                     <img src="../img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                                     <p>
-                                       chendahai 
+                                       {{authName}}
                                         <small>最后登录 11:20AM</small>
                                     </p>
                                 </li>
@@ -299,7 +307,7 @@
                         <img src="../img/user2-160x160.jpg" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
-                        <p> chendahai</p>
+                        <p> {{authName}}</p>
                         <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
                     </div>
                 </div>

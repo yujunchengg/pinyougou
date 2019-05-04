@@ -1,14 +1,9 @@
 package com.bdwk.pinyougou.managerweb.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.bdwk.pinyougou.common.enums.ResultEnum;
 import com.bdwk.pinyougou.common.http.R;
-import com.bdwk.pinyougou.pojo.TbBrand;
+import com.bdwk.pinyougou.entity.pojo.TbBrand;
 import com.bdwk.pinyougou.sellergoods.service.IBrandService;
-import com.google.common.base.Strings;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,9 +11,9 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/brand")
-public class BrandController {
+public class BrandController extends BaseController{
 
-    @Reference(version = "1.0.0",url = "dubbo://127.0.0.1:20903")
+    @Reference(version = DUBBO_REFERENCE_VERSION,url =DUBBO_REFERENCE_URL)
     private IBrandService brandService;
 
     /**
@@ -27,7 +22,7 @@ public class BrandController {
      */
     @RequestMapping(value = "/findAll",method = RequestMethod.GET)
     public R findAll(){
-        return R.create(brandService.findAll());
+        return brandService.selectAll();
     }
 
     /**
@@ -35,8 +30,8 @@ public class BrandController {
      * @return
      */
     @RequestMapping(value = "/findPage",method = RequestMethod.GET)
-    public R findPage(@RequestParam("page") Integer page, @RequestParam("rows") Integer rows){
-        return R.create(brandService.selectPage(new Page<>(page,rows)));
+    public R findPage(@RequestParam("page") Long page, @RequestParam("rows") Long rows){
+        return brandService.page(page,rows);
     }
 
     /**
@@ -46,21 +41,9 @@ public class BrandController {
      * @return
      */
     @RequestMapping(value = "/search",method = RequestMethod.POST)
-    public R search(@RequestParam("page") Integer page, @RequestParam("rows") Integer rows,@RequestBody TbBrand tbBrand){
-        if(null==tbBrand){
-            return R.create(brandService.selectPage(new Page<>(page,rows)));
-        }else {
-            Wrapper<TbBrand> wrapper=new EntityWrapper<>();
-            if(!Strings.isNullOrEmpty(tbBrand.getName())){
-                wrapper.like("name",tbBrand.getName());
-            }
-            if(!Strings.isNullOrEmpty(tbBrand.getFirstChar())){
-                wrapper.like("first_char",tbBrand.getFirstChar());
-            }
-            return R.create(brandService.selectPage(new Page<>(page,rows),wrapper));
-        }
+    public R search(@RequestParam("page") Long page, @RequestParam("rows") Long rows,@RequestBody TbBrand tbBrand){
+        return brandService.page(page,rows,tbBrand);
     }
-
 
     /**
      * 单条查询
@@ -68,7 +51,7 @@ public class BrandController {
      */
     @RequestMapping(value = "/findOne",method = RequestMethod.GET)
     public R<TbBrand> findOne(@RequestParam("id")Long id){
-        return R.create(brandService.selectById(id));
+        return R.create(brandService.getById(id));
     }
 
     /**
@@ -78,7 +61,7 @@ public class BrandController {
      */
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     public R add(@RequestBody TbBrand tbBrand){
-        return brandService.insert(tbBrand)?R.create(ResultEnum.DATA_SAVE_SUCCESS):R.create(ResultEnum.DATA_SAVE_FAILED);
+        return brandService.add(tbBrand);
     }
 
     /**
@@ -87,7 +70,7 @@ public class BrandController {
      */
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     public R update(@RequestBody TbBrand tbBrand){
-        return brandService.updateById(tbBrand)?R.create(ResultEnum.DATA_UPDATE_SUCCESS):R.create(ResultEnum.DATA_UPDATE_FAILED);
+        return brandService.update(tbBrand);
     }
 
     /**
@@ -97,7 +80,7 @@ public class BrandController {
      */
     @RequestMapping(value = "/delete",method = RequestMethod.GET)
     public R delete(@RequestParam List<Long> ids){
-        return brandService.deleteBatchIds(ids)?R.create(ResultEnum.DATA_DELETE_SUCCESS):R.create(ResultEnum.DATA_DELETE_FAILED);
+        return brandService.removeByIds(ids)?R.deleteSuccess():R.deleteFailed();
     }
 
     /**
@@ -106,6 +89,6 @@ public class BrandController {
      */
     @RequestMapping(value = "/select2list",method = RequestMethod.GET)
     public R<List<Map>> select2list(){
-        return R.create(brandService.select2list());
+        return brandService.select2list();
     }
 }

@@ -1,5 +1,6 @@
 //baseController
 app.controller('baseController',function ($scope) {
+    $scope.authName='';
     $scope.reload=true;         //控制分页控件是否重新加载
     $scope.selectIds=[];        //用户选定的ID集合
     //分页配置

@@ -1,5 +1,7 @@
 //baseController
 app.controller('baseController',function ($scope) {
+    //已认证的用户名
+    $scope.authName='';
     $scope.reload=true;         //控制分页控件是否重新加载
     $scope.selectIds=[];        //用户选定的ID集合
     //分页配置

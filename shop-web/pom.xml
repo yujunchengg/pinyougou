@@ -29,7 +29,7 @@
 
         <dependency>
             <groupId>com.bdwk.pinyougou</groupId>
-            <artifactId>common</artifactId>
+            <artifactId>exception</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 

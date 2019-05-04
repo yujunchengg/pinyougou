@@ -1,23 +1,18 @@
 package com.bdwk.pinyougou.managerweb.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.bdwk.pinyougou.common.enums.ResultEnum;
 import com.bdwk.pinyougou.common.http.R;
-import com.bdwk.pinyougou.pojo.TbTypeTemplate;
+import com.bdwk.pinyougou.entity.pojo.TbTypeTemplate;
 import com.bdwk.pinyougou.sellergoods.service.ITypeTemplateService;
-import com.google.common.base.Strings;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/typeTemplate")
-public class TypeTemplateController {
+public class TypeTemplateController extends BaseController{
 
-    @Reference(version = "1.0.0",url = "dubbo://127.0.0.1:20903")
+    @Reference(version = DUBBO_REFERENCE_VERSION,url =DUBBO_REFERENCE_URL)
     private ITypeTemplateService typeTemplateService;
 
     /**
@@ -26,7 +21,7 @@ public class TypeTemplateController {
      */
     @RequestMapping(value = "/findAll",method = RequestMethod.GET)
     public R findAll(){
-        return R.create(typeTemplateService.findAll());
+        return typeTemplateService.selectAll();
     }
 
     /**
@@ -34,8 +29,8 @@ public class TypeTemplateController {
      * @return
      */
     @RequestMapping(value = "/findPage",method = RequestMethod.GET)
-    public R findPage(@RequestParam("page") Integer page, @RequestParam("rows") Integer rows){
-        return R.create(typeTemplateService.selectPage(new Page<>(page,rows)));
+    public R findPage(@RequestParam("page") Long page, @RequestParam("rows") Long rows){
+        return typeTemplateService.page(page,rows);
     }
 
     /**
@@ -45,16 +40,8 @@ public class TypeTemplateController {
      * @return
      */
     @RequestMapping(value = "/search",method = RequestMethod.POST)
-    public R search(@RequestParam("page") Integer page, @RequestParam("rows") Integer rows,@RequestBody TbTypeTemplate tbTypeTemplate){
-        if(null==tbTypeTemplate){
-            return R.create(typeTemplateService.selectPage(new Page<>(page,rows)));
-        }else {
-            Wrapper<TbTypeTemplate> wrapper=new EntityWrapper<>();
-            if(!Strings.isNullOrEmpty(tbTypeTemplate.getName())){
-                wrapper.like("name",tbTypeTemplate.getName());
-            }
-            return R.create(typeTemplateService.selectPage(new Page<>(page,rows),wrapper));
-        }
+    public R search(@RequestParam("page") Long page, @RequestParam("rows") Long rows,@RequestBody TbTypeTemplate tbTypeTemplate){
+        return typeTemplateService.page(page,rows,tbTypeTemplate);
     }
 
     /**
@@ -63,7 +50,7 @@ public class TypeTemplateController {
      */
     @RequestMapping(value = "/findOne",method = RequestMethod.GET)
     public R<TbTypeTemplate> findOne(@RequestParam("id")Long id){
-        return R.create(typeTemplateService.selectById(id));
+        return R.create(typeTemplateService.getById(id));
     }
 
     /**
@@ -73,7 +60,7 @@ public class TypeTemplateController {
      */
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     public R add(@RequestBody TbTypeTemplate tbTypeTemplate){
-        return typeTemplateService.insert(tbTypeTemplate)?R.create(ResultEnum.DATA_SAVE_SUCCESS):R.create(ResultEnum.DATA_SAVE_FAILED);
+        return typeTemplateService.save(tbTypeTemplate)?R.addSuccess():R.addFailed();
     }
 
     /**
@@ -82,7 +69,7 @@ public class TypeTemplateController {
      */
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     public R update(@RequestBody TbTypeTemplate tbTypeTemplate){
-        return typeTemplateService.updateById(tbTypeTemplate)?R.create(ResultEnum.DATA_UPDATE_SUCCESS):R.create(ResultEnum.DATA_UPDATE_FAILED);
+        return typeTemplateService.updateById(tbTypeTemplate)?R.updateSuccess():R.updateFailed();
     }
 
     /**
@@ -92,6 +79,6 @@ public class TypeTemplateController {
      */
     @RequestMapping(value = "/delete",method = RequestMethod.GET)
     public R delete(@RequestParam List<Long> ids){
-        return typeTemplateService.deleteBatchIds(ids)?R.create(ResultEnum.DATA_DELETE_SUCCESS):R.create(ResultEnum.DATA_DELETE_FAILED);
+        return typeTemplateService.removeByIds(ids)?R.deleteSuccess():R.deleteFailed();
     }
 }

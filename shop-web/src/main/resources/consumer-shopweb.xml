@@ -5,10 +5,10 @@
 		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
     <!--dubbo服务类所在包的注解-->
-    <dubbo:annotation package="com.bdwk.pinyougou.shopweb.controller" />
+    <dubbo:annotation package="com.bdwk.pinyougou.shopweb" />
 
     <!--注册中心zookeeper配置信息-->
-    <dubbo:registry address="zookeeper://192.168.120.110:2181" />
+    <dubbo:registry address="zookeeper://192.168.120.130:2181" />
 
     <!--消费方信息配置-->
     <dubbo:application name="shop-web" owner="bdwk" organization="dubbox"/>

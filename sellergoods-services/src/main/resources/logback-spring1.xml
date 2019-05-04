@@ -106,7 +106,7 @@
             </encoder>
         </appender>
 
-        <logger name="com.bdwk.pinyougou.mapper" level="DEBUG"/>
+        <logger name="com.bdwk.pinyougou.dao.mapper" level="DEBUG"/>
         <!--记录到文件时，记录两类一类是error日志，一个是所有日志-->
         <root level="info">
             <appender-ref ref="STDOUT"/>

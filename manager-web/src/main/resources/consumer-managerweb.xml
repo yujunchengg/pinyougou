@@ -8,7 +8,7 @@
     <dubbo:annotation package="com.bdwk.pinyougou.managerweb.controller" />
 
     <!--注册中心zookeeper配置信息-->
-    <dubbo:registry address="zookeeper://192.168.120.110:2181" />
+    <dubbo:registry address="zookeeper://192.168.120.130:2181" />
 
     <!--消费方信息配置-->
     <dubbo:application name="manager-web" owner="bdwk" organization="dubbox"/>

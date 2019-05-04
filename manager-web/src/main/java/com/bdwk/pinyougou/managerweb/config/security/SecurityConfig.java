@@ -24,6 +24,7 @@ public class SecurityConfig<configureGlobalSecurity> extends WebSecurityConfigur
         http.authorizeRequests()
                 .antMatchers("/login.html","/css/**","/img/**","/js/**","/plugins/**").permitAll()
                 .antMatchers("/admin/**").access("hasRole('MANGER')")
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login.html")   //登录页路径
@@ -39,6 +40,8 @@ public class SecurityConfig<configureGlobalSecurity> extends WebSecurityConfigur
         //允许页面iframe嵌套
         http.headers().frameOptions().disable();
     }
+
+
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
         // 以前的方式配置

@@ -1,7 +1,8 @@
 package com.bdwk.pinyougou.sellergoods.service;
 
-import com.baomidou.mybatisplus.service.IService;
-import com.bdwk.pinyougou.pojo.TbSpecificationOption;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.bdwk.pinyougou.common.http.R;
+import com.bdwk.pinyougou.entity.pojo.TbSpecificationOption;
 
 import java.util.List;
 
@@ -9,5 +10,6 @@ import java.util.List;
  * 商品规格详情业务接口
  */
 public interface ISpecificationOptionService extends IService<TbSpecificationOption> {
-    List<TbSpecificationOption> findAll();
+
+    R<List<TbSpecificationOption>> selectAll();
 }

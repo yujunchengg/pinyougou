@@ -15,25 +15,36 @@
     <link rel="stylesheet" href="../css/style.css">
 	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
     <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
-    
+
+	<!--引入select2相关的js和css-->
+	<link rel="stylesheet" href="../plugins/select2/select2.css" />
+	<link rel="stylesheet" href="../plugins/select2/select2-bootstrap.css" />
+	<script src="../plugins/select2/select2.min.js" type="text/javascript"></script>
     <!-- 富文本编辑器 -->
 	<link rel="stylesheet" href="../plugins/kindeditor/themes/default/default.css" />
 	<script charset="utf-8" src="../plugins/kindeditor/kindeditor-min.js"></script>
 	<script charset="utf-8" src="../plugins/kindeditor/lang/zh_CN.js"></script>
-    
-    
-      
+
+
+	<!--引入angular.js-->
+	<script type="text/javascript" src="../plugins/angularjs/angular.min.js"></script>
+
+	<!--引入页面渲染所需的js-->
+	<script type="text/javascript" src="../js/local/base.js"></script>
+	<!--引入angular整合select2的js文件-->
+	<script type="text/javascript" src="../js/local/angular-select2.js"></script>
+	<script type="text/javascript" src="../js/local/service/goodsService.js"></script>
+	<script type="text/javascript" src="../js/local/controller/baseController.js"></script>
+	<script type="text/javascript" src="../js/local/controller/goodsController.js"></script>
     
     
 </head>
 
-<body class="hold-transition skin-red sidebar-mini" >
+<body ng-app="pinyougou" ng-controller="goodsController" ng-init="initSelect2(1,0)" class="hold-transition skin-red sidebar-mini" >
 
             <!-- 正文区域 -->
             <section class="content">
-
                 <div class="box-body">
-
                     <!--tab页-->
                     <div class="nav-tabs-custom">
 
@@ -65,18 +76,17 @@
 		                           	  <div class="col-md-10 data">
 		                           	  	<table>
 		                           	  		<tr>
-		                           	  			<td>
-		                           	  				<select class="form-control" >														
-		                           	  				</select>
+		                           	  			<td ng-show="select2Vo.level1List.data!=null">
+													<input select2 ng-change="initSelect2(2,entity.goods.category1Id)" config="select2Vo.level1List" ng-model="entity.goods.category1Id" placeholder="  一级分类  " class="form-control" type="text"/>
 		                              			</td>
-		                              			<td>
-		                           	  				<select class="form-control select-sm" ></select>
+		                              			<td ng-show="select2Vo.level2List.data!=null">
+													<input select2 ng-change="initSelect2(3,entity.goods.category2Id)" config="select2Vo.level2List" ng-model="entity.goods.category2Id" placeholder="  二级分类  " class="form-control" type="text"/>
 		                              			</td>
-		                              			<td>
-		                           	  				<select class="form-control select-sm" ></select>
+		                              			<td ng-show="select2Vo.level3List.data!=null">
+													<input select2 config="select2Vo.level3List" ng-model="entity.goods.category3Id" placeholder="  三级分类  " class="form-control" type="text"/>
 		                              			</td>
-		                              			<td>
-		                           	  				模板ID:19
+		                              			<td ng-show="select2Vo.tempList.data!=null">
+													<input select2 config="select2Vo.tempList" ng-model="entity.goods.typeTemplateId" placeholder=" 商品类型模板 " class="form-control" type="text"/>
 		                              			</td>
 		                           	  		</tr>
 		                           	  	</table>
@@ -86,24 +96,24 @@
 									
 		                           <div class="col-md-2 title">商品名称</div>
 		                           <div class="col-md-10 data">
-		                               <input type="text" class="form-control"    placeholder="商品名称" value="">
+		                               <input ng-model="entity.goods.goodsName" type="text" class="form-control" placeholder="商品名称">
 		                           </div>
 		                           
 		                           <div class="col-md-2 title">品牌</div>
-		                           <div class="col-md-10 data">
-		                              <select class="form-control" ></select>
+		                           <div class="col-md-10 data" ng-show="select2Vo.brandList.data!=null">
+									   <input select2 config="select2Vo.brandList" ng-model="entity.goods.brandId" placeholder="  品牌  " class="form-control" type="text"/>
 		                           </div>
 		
 								   <div class="col-md-2 title">副标题</div>
 		                           <div class="col-md-10 data">
-		                               <input type="text" class="form-control"   placeholder="副标题" value="">
+		                               <input ng-model="entity.goods.caption" type="text" class="form-control" placeholder="副标题">
 		                           </div>
 		                           
 		                           <div class="col-md-2 title">价格</div>
 		                           <div class="col-md-10 data">
 		                           	   <div class="input-group">
 			                          	   <span class="input-group-addon">¥</span>
-			                               <input type="text" class="form-control"  placeholder="价格" value="">
+			                               <input min="0" ng-model="entity.goods.price" type="number" class="form-control" placeholder="价格">
 		                           	   </div>
 		                           </div>
 		                           
@@ -115,12 +125,12 @@
 		                           <div class="col-md-2 title rowHeight2x">包装列表</div>
 		                           <div class="col-md-10 data rowHeight2x">
 		                               
-		                           	<textarea rows="4"  class="form-control"   placeholder="包装列表"></textarea>
+		                           	<textarea rows="4" ng-model="entity.goodsDesc.packageList" class="form-control" placeholder="包装列表"></textarea>
 		                           </div>
 		                           
 		                           <div class="col-md-2 title rowHeight2x">售后服务</div>
 		                           <div class="col-md-10 data rowHeight2x">
-		                               <textarea rows="4"  class="form-control"    placeholder="售后服务"></textarea>
+		                               <textarea rows="4" ng-model="entity.goodsDesc.saleService" class="form-control" placeholder="售后服务"></textarea>
 		                           </div>                        
                                   
                                     
@@ -336,19 +346,12 @@
 						<!--表单内容/-->
 							 
                     </div>
-                 	
-                 	
-                 	
-                 	
                    </div>
                   <div class="btn-toolbar list-toolbar">
-				      <button class="btn btn-primary" ><i class="fa fa-save"></i>保存</button>
+				      <button class="btn btn-primary" ng-click="add()"><i class="fa fa-save"></i>保存</button>
 				      <button class="btn btn-default" >返回列表</button>
 				  </div>
-			
             </section>
-            
-            
 <!-- 上传窗口 -->
 <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" >
@@ -392,11 +395,8 @@
 	  </div>
 	</div>
 </div>
-
-            
-            <!-- 正文区域 /-->
+			<!-- 正文区域 /-->
 <script type="text/javascript">
-
 	var editor;
 	KindEditor.ready(function(K) {
 		editor = K.create('textarea[name="content"]', {
