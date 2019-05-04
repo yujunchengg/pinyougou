@@ -1,44 +1,36 @@
-/**
- * Copyright 2018-2020 stylefeng & fengshuonan (sn93@qq.com)
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-package com.bdwk.pinyougou.config.datasource;
+package com.bdwk.pinyougou.dao.config.datasource.single;
 
-import cn.stylefeng.roses.core.config.properties.DruidProperties;
-import cn.stylefeng.roses.core.datascope.DataScopeInterceptor;
+import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
+import com.bdwk.pinyougou.dao.config.properties.DruidProperties;
 import com.alibaba.druid.pool.DruidDataSource;
-import com.baomidou.mybatisplus.plugins.OptimisticLockerInterceptor;
-import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
+import com.bdwk.pinyougou.dao.datascope.DataScopeInterceptor;
+import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * 多数据源配置
  *
- * @author stylefeng
- * @Date 2017/5/20 21:58
+ * @author yujuncheng
+ * @Date 2019/5/2 16:18
  */
 @Configuration
 @ConditionalOnProperty(prefix = "bdwk.muti-datasource", name = "open", havingValue = "false", matchIfMissing = true)
 @EnableTransactionManagement
-@MapperScan(basePackages = {"com.bdwk.pinyougou.mapper"})
+@MapperScan(basePackages = {"com.bdwk.pinyougou.dao.mapper"})
+@Slf4j
 public class SingleDataSourceConfig {
-
+    SingleDataSourceConfig(){
+        log.info("SingleDataSourceConfig is excuted..............");
+    }
     /**
      * druid配置
      */
@@ -63,7 +55,9 @@ public class SingleDataSourceConfig {
      */
     @Bean
     public PaginationInterceptor paginationInterceptor() {
-        return new PaginationInterceptor();
+        PaginationInterceptor paginationInterceptor=new PaginationInterceptor();
+        paginationInterceptor.setDialectType(DbType.MYSQL.getDb());
+        return paginationInterceptor;
     }
 
     /**
@@ -80,6 +74,17 @@ public class SingleDataSourceConfig {
     @Bean
     public OptimisticLockerInterceptor optimisticLockerInterceptor() {
         return new OptimisticLockerInterceptor();
+    }
+
+    /**
+     * SQL执行效率插件
+     */
+    @Bean
+    @Profile({"dev","test"})// 设置 dev test 环境开启
+    public PerformanceInterceptor performanceInterceptor() {
+        PerformanceInterceptor performanceInterceptor=new PerformanceInterceptor();
+        performanceInterceptor.setFormat(true);
+        return performanceInterceptor;
     }
 
 }

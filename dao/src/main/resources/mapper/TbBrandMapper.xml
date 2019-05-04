@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.bdwk.pinyougou.mapper.TbBrandMapper">
+<mapper namespace="com.bdwk.pinyougou.dao.mapper.TbBrandMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="base_map" type="com.bdwk.pinyougou.pojo.TbBrand">
+    <resultMap id="base_map" type="com.bdwk.pinyougou.entity.pojo.TbBrand">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="first_char" property="firstChar"/>

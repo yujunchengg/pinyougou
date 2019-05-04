@@ -1,7 +1,7 @@
-package com.bdwk.pinyougou.mapper;
+package com.bdwk.pinyougou.dao.mapper;
 
-import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.bdwk.pinyougou.pojo.TbSpecification;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.bdwk.pinyougou.entity.pojo.TbSpecification;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

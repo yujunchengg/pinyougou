@@ -1,5 +1,5 @@
 mybatis-plus:
-  type-aliases-package: com.bdwk.pinyougou.pojo
+  type-aliases-package: com.bdwk.pinyougou.entity.pojo
   mapper-locations: classpath:mapper/*Mapper.xml
   configuration:
     map-underscore-to-camel-case: true

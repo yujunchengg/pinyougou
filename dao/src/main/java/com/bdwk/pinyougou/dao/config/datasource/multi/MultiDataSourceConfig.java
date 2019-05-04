@@ -1,28 +1,13 @@
-/**
- * Copyright 2018-2020 stylefeng & fengshuonan (sn93@qq.com)
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-package com.bdwk.pinyougou.config.datasource;
+package com.bdwk.pinyougou.dao.config.datasource.multi;
 
-import cn.stylefeng.roses.core.config.properties.DruidProperties;
-import cn.stylefeng.roses.core.config.properties.MutiDataSourceProperties;
-import cn.stylefeng.roses.core.datascope.DataScopeInterceptor;
-import cn.stylefeng.roses.core.mutidatasource.DynamicDataSource;
-import cn.stylefeng.roses.core.mutidatasource.aop.MultiSourceExAop;
 import com.alibaba.druid.pool.DruidDataSource;
-import com.baomidou.mybatisplus.plugins.OptimisticLockerInterceptor;
-import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import com.bdwk.pinyougou.dao.config.datasource.multi.aop.MultiSourceExAop;
+import com.bdwk.pinyougou.dao.config.properties.DruidProperties;
+import com.bdwk.pinyougou.dao.config.properties.MutiDataSourceProperties;
+import com.bdwk.pinyougou.dao.datascope.DataScopeInterceptor;
+import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -39,13 +24,17 @@ import java.util.HashMap;
  * 注：由于引入多数据源，所以让spring事务的aop要在多数据源切换aop的后面
  *
  * @author luolaoda
- * @Date 2017/5/20 21:58
+ * @Date 2019/5/2 18:11
  */
 @Configuration
 @ConditionalOnProperty(prefix = "bdwk.muti-datasource", name = "open", havingValue = "true")
 @EnableTransactionManagement(order = 2, proxyTargetClass = true)
-@MapperScan(basePackages = {"com.bdwk.pinyougou.mapper"})
+@MapperScan(basePackages = {"com.bdwk.pinyougou.dao.mapper"})
+@Slf4j
 public class MultiDataSourceConfig {
+    MultiDataSourceConfig(){
+        log.info("MultiDataSourceConfig is excuted..............");
+    }
 
     /**
      * druid配置

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.bdwk.pinyougou.mapper.TbTypeTemplateMapper">
+<mapper namespace="com.bdwk.pinyougou.dao.mapper.TbTypeTemplateMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="base_map" type="com.bdwk.pinyougou.pojo.TbTypeTemplate">
+    <resultMap id="base_map" type="com.bdwk.pinyougou.entity.pojo.TbTypeTemplate">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="spec_ids" property="specIds"/>
@@ -15,4 +15,13 @@
     <sql id="base_column">
         id,name,spec_ids,brand_ids,custom_attribute_items
     </sql>
+
+    <sql id="base_table">
+        tb_type_template
+    </sql>
+
+    <select id="select2List" resultType="java.util.Map">
+        select id,name as text
+        from <include refid="base_table"/>
+    </select>
 </mapper>
