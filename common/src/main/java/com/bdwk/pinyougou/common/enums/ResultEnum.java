@@ -88,18 +88,25 @@ public enum  ResultEnum {
     DATA_DELETE_FAILED(515,"data delete failed"),
     DATA_UPDATE_SUCCESS(516,"data update success"),
     DATA_UPDATE_FAILED(517,"data update failed"),
+    PARAM_IS_INVALID(518, "参数无效"),
+    PARAM_IS_BLANK(519, "参数为空"),
+    ARGUMENTTYPEMISMATCH(520, "参数类型错误"),
+    PARAM_NOT_COMPLETE(521, "参数缺失"),
 
-    PARAM_IS_INVALID(10001, "参数无效"),
-    PARAM_IS_BLANK(10002, "参数为空"),
-    PARAM_TYPE_BIND_ERROR(10003, "参数类型错误"),
-    PARAM_NOT_COMPLETE(10004, "参数缺失"),
+    /* 用户错误：1000-1999*/
+    USER_NOT_LOGGED_IN(1000, "用户未登录"),
+    USER_LOGIN_ERROR(1001, "账号不存在或密码错误"),
+    USER_ACCOUNT_FORBIDDEN(1002, "账号已被禁用"),
+    USER_NOT_EXIST(1003, "用户不存在"),
+    USER_HAS_EXISTED(1004, "用户已存在"),
 
-    /* 用户错误：20001-29999*/
-    USER_NOT_LOGGED_IN(20001, "用户未登录"),
-    USER_LOGIN_ERROR(20002, "账号不存在或密码错误"),
-    USER_ACCOUNT_FORBIDDEN(20003, "账号已被禁用"),
-    USER_NOT_EXIST(20004, "用户不存在"),
-    USER_HAS_EXISTED(20005, "用户已存在"),
+    /* 规格详情有关的错误码:2000-2999  */
+    SPECIFICATIONOPTION_MUST_NOTNULL(2000,"规格详情不能为空"),
+
+    /* 品牌有关的错误码:3000-3999  */
+    BRAND_FIRSTCHAR_TOOLONG(3000,"品牌首字母错误，请输入一个单词字符"),
+
+
     /* 业务错误：30001-39999 */
     SPECIFIED_QUESTIONED_USER_NOT_EXIST(30001, "未知业务发生异常"),
     /* 系统错误：40001-49999 */

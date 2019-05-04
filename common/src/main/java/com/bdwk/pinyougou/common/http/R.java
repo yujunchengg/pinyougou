@@ -66,4 +66,25 @@ public class R<T> implements Serializable {
     public static <T> R create(T data) {
         return create(ResultEnum.OK,data);
     }
+
+    /***********************增删改操作简单返回值********************************/
+
+    public static R addSuccess(){
+        return create(ResultEnum.DATA_SAVE_SUCCESS);
+    }
+    public static R addFailed(){
+        return create(ResultEnum.DATA_SAVE_FAILED);
+    }
+    public static R deleteSuccess(){
+        return create(ResultEnum.DATA_DELETE_SUCCESS);
+    }
+    public static R deleteFailed(){
+        return create(ResultEnum.DATA_DELETE_FAILED);
+    }
+    public static R updateSuccess(){
+        return create(ResultEnum.DATA_UPDATE_SUCCESS);
+    }
+    public static R updateFailed(){
+        return create(ResultEnum.DATA_UPDATE_FAILED);
+    }
 }
